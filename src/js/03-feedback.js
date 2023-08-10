@@ -12,21 +12,44 @@ let serializedState;
 formFeedback.addEventListener('input', throttle(onSaveData, 500));
 formFeedback.addEventListener('submit', onCleanForm);
 
-if (saveData) {
-    // inputForm.value = JSON.parse(saveData).email;
-    // messageForm.value = JSON.parse(saveData).message;
-    inputForm.value = saveData.email;
-    messageForm.value = saveData.message;
-} else {
-    inputForm.value = '';
-    messageForm.value = '';
-}
+// if (saveData) {
+//     // inputForm.value = JSON.parse(saveData).email;
+//     // messageForm.value = JSON.parse(saveData).message;
+//     inputForm.value = saveData.email;
+//     messageForm.value = saveData.message;
+// } else {
+//     inputForm.value = '';
+//     messageForm.value = '';
+// }
+
+// function onSaveData(event) {
+//     const { name, value } = event.target;
+//     dataInputs[name] = value;
+//     const { email, message } = dataInputs;
+//     if (!email || !message) return;
+//      try {
+//         serializedState = JSON.stringify(dataInputs);
+//         localStorage.setItem(DATE_FORM, serializedState);
+//     } catch (error) {
+//         console.error("Set state error: ", error.message);
+//     }
+// }
+
+// function onCleanForm(e) {
+//     e.preventDefault();
+//     console.log(dataInputs);
+//     try {
+//         localStorage.removeItem(DATE_FORM);
+//     } catch (error) {
+//         console.error("Set state error: ", error.message);
+//     }
+//     inputForm.value = '';
+//     messageForm.value = '';
+// }
 
 function onSaveData(event) {
     const { name, value } = event.target;
     dataInputs[name] = value;
-    const { email, message } = dataInputs;
-    if (!email || !message) return;
      try {
         serializedState = JSON.stringify(dataInputs);
         localStorage.setItem(DATE_FORM, serializedState);
@@ -35,10 +58,13 @@ function onSaveData(event) {
     }
 }
 
-function onCleanForm(e) {
-    e.preventDefault();
+function onCleanForm(event) {
+    event.preventDefault();
+    const { email, message } = dataInputs;
+    if (!email || !message) return alert('All fields must be filled in!');
     console.log(dataInputs);
-    try {
+    dataInputs = {};
+     try {
         localStorage.removeItem(DATE_FORM);
     } catch (error) {
         console.error("Set state error: ", error.message);
