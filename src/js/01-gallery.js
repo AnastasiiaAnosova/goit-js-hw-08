@@ -22,7 +22,7 @@ const galleryItemsElement = galleryItems.map((image) => {
 
 galleryElement.innerHTML = galleryItemsElement;
 
-const lightbox = new SimpleLightbox('.gallery a', {
+new SimpleLightbox('.gallery a', {
     captionsData: 'alt',
     captionsDelay: 250,
 });
