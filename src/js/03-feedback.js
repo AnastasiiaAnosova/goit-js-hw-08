@@ -47,29 +47,3 @@ function onCleanForm(event) {
     inputForm.value = '';
     messageForm.value = '';
 }
-
-
-// function onSaveData(event) {
-//     const { name, value } = event.target;
-//     dataInputs[name] = value;
-//     const { email, message } = dataInputs;
-//     if (!email || !message) return;
-//      try {
-//         serializedState = JSON.stringify(dataInputs);
-//         localStorage.setItem(DATE_FORM, serializedState);
-//     } catch (error) {
-//         console.error("Set state error: ", error.message);
-//     }
-// }
-
-// function onCleanForm(e) {
-//     e.preventDefault();
-//     console.log(dataInputs);
-//     try {
-//         localStorage.removeItem(DATE_FORM);
-//     } catch (error) {
-//         console.error("Set state error: ", error.message);
-//     }
-//     inputForm.value = '';
-//     messageForm.value = '';
-// }
