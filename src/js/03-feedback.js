@@ -12,15 +12,42 @@ let serializedState;
 formFeedback.addEventListener('input', throttle(onSaveData, 500));
 formFeedback.addEventListener('submit', onCleanForm);
 
-// if (saveData) {
-//     // inputForm.value = JSON.parse(saveData).email;
-//     // messageForm.value = JSON.parse(saveData).message;
-//     inputForm.value = saveData.email;
-//     messageForm.value = saveData.message;
-// } else {
-//     inputForm.value = '';
-//     messageForm.value = '';
-// }
+if (saveData) {
+    serializedState = JSON.parse(saveData);
+    inputForm.value = serializedState.email;
+    messageForm.value = serializedState.message;
+} else {
+    inputForm.value = '';
+    messageForm.value = '';
+}
+
+function onSaveData(event) {
+    const { name, value } = event.target;
+    dataInputs[name] = value;
+     try {
+        serializedState = JSON.stringify(dataInputs);
+        localStorage.setItem(DATE_FORM, serializedState);
+    } catch (error) {
+        console.error("Set state error: ", error.message);
+     }
+}
+
+function onCleanForm(event) {
+    event.preventDefault();
+    // const { email, message } = dataInputs;
+    // if (!email || !message) return alert('All fields must be filled in!');
+    if (!inputForm.value || !messageForm.value) return alert('All fields must be filled in!');
+    console.log(dataInputs);
+    dataInputs = {};
+     try {
+        localStorage.removeItem(DATE_FORM);
+    } catch (error) {
+        console.error("Set state error: ", error.message);
+    }
+    inputForm.value = '';
+    messageForm.value = '';
+}
+
 
 // function onSaveData(event) {
 //     const { name, value } = event.target;
@@ -46,29 +73,3 @@ formFeedback.addEventListener('submit', onCleanForm);
 //     inputForm.value = '';
 //     messageForm.value = '';
 // }
-
-function onSaveData(event) {
-    const { name, value } = event.target;
-    dataInputs[name] = value;
-     try {
-        serializedState = JSON.stringify(dataInputs);
-        localStorage.setItem(DATE_FORM, serializedState);
-    } catch (error) {
-        console.error("Set state error: ", error.message);
-    }
-}
-
-function onCleanForm(event) {
-    event.preventDefault();
-    const { email, message } = dataInputs;
-    if (!email || !message) return alert('All fields must be filled in!');
-    console.log(dataInputs);
-    dataInputs = {};
-     try {
-        localStorage.removeItem(DATE_FORM);
-    } catch (error) {
-        console.error("Set state error: ", error.message);
-    }
-    inputForm.value = '';
-    messageForm.value = '';
-}
