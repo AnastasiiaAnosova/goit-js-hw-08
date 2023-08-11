@@ -8,6 +8,22 @@ let playTime = 0;
 
 player.on('timeupdate', throttle(onTimeUpDate, 1000));
 
+function onTimeUpDate(data) {
+    playTime = data.seconds;
+    try {
+        localStorage.setItem(PLAY_TIME_KEY, JSON.stringify(playTime));
+  } catch (error) {
+    console.error("Set state error: ", error.message);
+  }
+}
+
+if (localStorage.getItem(PLAY_TIME_KEY) !== null) {
+    playTime = JSON.parse(localStorage.getItem(PLAY_TIME_KEY));
+        player.setCurrentTime(playTime).catch(function (error) {
+            console.error("Set current time error:", error.message);
+        })
+}
+
 // try {
 //     serializedState = localStorage.getItem(PLAY_TIME_KEY);
 //     if (serializedState !== null) {
@@ -30,19 +46,3 @@ player.on('timeupdate', throttle(onTimeUpDate, 1000));
 //     console.error("Set state error: ", error.message);
 //   }
 // }
-
-function onTimeUpDate(data) {
-    playTime = data.seconds;
-    try {
-        localStorage.setItem(PLAY_TIME_KEY, JSON.stringify(playTime));
-  } catch (error) {
-    console.error("Set state error: ", error.message);
-  }
-}
-
-if (localStorage.getItem(PLAY_TIME_KEY) !== null) {
-    playTime = JSON.parse(localStorage.getItem(PLAY_TIME_KEY));
-        player.setCurrentTime(playTime).catch(function (error) {
-            console.error("Set current time error:", error.message);
-        })
-}
