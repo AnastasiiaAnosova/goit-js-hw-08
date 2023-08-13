@@ -22,14 +22,6 @@ function loadStateFromLocalStorage() {
     }
     return {};
 }
-// if (saveData) {
-//     serializedState = JSON.parse(saveData);
-//     emailForm.value = serializedState.email;
-//     messageForm.value = serializedState.message;
-// } else {
-//     emailForm.value = '';
-//     messageForm.value = '';
-// }
 
 function onSaveData(event) {
     const { name, value } = event.target;
